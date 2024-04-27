@@ -113,15 +113,19 @@ def logout():
 @app.route('/', methods=['GET', 'POST'])
 def recommendation():
     similar_books = []
+    book = {}
     from recommendation import find_top_10_similar_books
     user_id = session.get('user_id')
     user_ratings = UserRating.query.filter_by(user_id=user_id).all()
-    book_id = user_ratings[-1].book_id
-    book_index = df[df['Accession No.'] == book_id].index
 
-    book = df.iloc[book_index[0]]
-    similar_books = find_top_10_similar_books(book_index=book_index)
-    return render_template('index.html', similar_books=similar_books.to_dict(orient='records'), book=book)
+    if user_ratings:
+        book_id = user_ratings[-1].book_id
+        book_index = df[df['Accession No.'] == book_id].index
+
+        book = df.iloc[book_index[0]]
+        similar_books = find_top_10_similar_books(book_index=book_index)
+        similar_books = similar_books.to_dict(orient='records')
+    return render_template('index.html', similar_books=similar_books, book=book)
 
 
 @app.route('/search_book', methods=['GET', 'POST'])
