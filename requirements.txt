@@ -1,5 +1,6 @@
 flask
-sqlite3
 flask_bcrypt
 flask_sqlalchemy
 pandas
+rapidfuzz
+openpyxl

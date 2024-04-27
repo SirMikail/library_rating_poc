@@ -7,6 +7,8 @@
     <h1>Welcome!</h1>
     {% if 'user_id' in session %}
         <p>You are logged in!</p>
+        <a href="{{ url_for('search_book') }}">Search Books</a>
+        <p>Click here to search for books</p>
         <a href="{{ url_for('logout') }}">Logout</a>
     {% else %}
         <p>Please <a href="{{ url_for('login') }}">login</a> or <a href="{{ url_for('signup') }}">sign up</a>.</p>
