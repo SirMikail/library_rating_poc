@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Ratings</title>
+    <style>
+        /* Add any styling here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .ratings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .ratings-table th, .ratings-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        .ratings-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Ratings</h1>
+    
+    <!-- Check if there are any ratings to display -->
+    {% if ratings %}
+        <!-- Create a table to display the ratings -->
+        <table class="ratings-table">
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Book Title</th>
+                    <th>Book Author</th>
+                    <th>Book Year</th>
+                    <th>Rating</th>
+                    <th>Rating Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through the ratings list and display each entry -->
+                {% for rating in ratings %}
+                    <tr>
+                        <td>{{ rating.book_id }}</td>
+                        <td>{{ rating.title }}</td>
+                        <td>{{ rating.author }}</td>
+                        <td>{{ rating.year }}</td>
+                        <td>{{ rating.rating }}</td>
+                        <td>{{ rating.rating_date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No ratings available for user ID: {{ user_id }}</p>
+    {% endif %}
+</body>
+</html>

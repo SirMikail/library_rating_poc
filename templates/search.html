@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    <form method="POST" action="/get_my_ratings">
+        <button type="submit">View My Ratings</button>
+    </form>
+
+    <h1>Search Books</h1>
+    <form method="POST" action="/search_book">
+        <label for="q">Search query:</label>
+        <input type="text" id="q" name="q">
+        <input type="submit" value="Search">
+    </form>
+
+    {% if search_results %}
+    <h2>Search Results:</h2>
+    <ul>
+        {% for result in search_results %}
+        <li>
+            <h3>{{ result.Title }}</h3>
+            <p>Author: {{ result.Author }}</p>
+            <p>Year: {{ result.Year }}</p>
+            <p>Book ID: {{ result['Accession No.'] }}</p>
+            <form method="POST" action="/rate_book">
+                <!-- Hidden input to pass the book ID -->
+                <input type="hidden" name="book_id" value="{{ result['Accession No.'] }}">
+                
+                <label for="rating">Rate this book:</label>
+                <!-- Dropdown for selecting a rating from 1 to 5 -->
+                <select name="rating" id="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                
+                <!-- Submit button for the rating -->
+                <button type="submit">Submit Rating</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
