@@ -4,11 +4,39 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Welcome!</h1>
+    <h1>Welcome to the Library Recommendation System</h1>
     {% if 'user_id' in session %}
-        <p>You are logged in!</p>
         <a href="{{ url_for('search_book') }}">Search Books</a>
-        <p>Click here to search for books</p>
+        <p> Because you rated <b>{{ book['Title'] }}</b> by <b>{{ book['Author'] }}</b>, You may like: </p>
+        <!-- Check if there are any ratings to display -->
+        {% if similar_books %}
+            <!-- Create a table to display the ratings -->
+            <table class="similar_books">
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Book Title</th>
+                        <th>Book Author</th>
+                        <th>Book Year</th>
+                        <th>Publisher</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through the ratings list and display each entry -->
+                    {% for book in similar_books %}
+                        <tr>
+                            <td>{{ book["Accession No."] }}</td>
+                            <td>{{ book["Title"] }}</td>
+                            <td>{{ book["Author"] }}</td>
+                            <td>{{ book["Year"] }}</td>
+                            <td>{{ book["Publisher"] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No recommended books, please rate a book first</p>
+        {% endif %}
         <a href="{{ url_for('logout') }}">Logout</a>
     {% else %}
         <p>Please <a href="{{ url_for('login') }}">login</a> or <a href="{{ url_for('signup') }}">sign up</a>.</p>
