@@ -95,7 +95,7 @@ def login():
             # If the user is found and the password matches, log them in
             session['user_id'] = user.id
             flash('You are now logged in!', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('recommendation'))
         else:
             flash('Invalid username or password', 'danger')
     
